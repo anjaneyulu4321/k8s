@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: mysvc
+spec:
+  type: loadBalancer
+  selector:
+     app: gameoflife
+  ports:
+    - mame: myporst
+      port: 80
+      targetPort: 8080

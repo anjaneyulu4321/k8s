@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: gameof
+spec:
+  minReadySeconds: 4
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gameoflife
+      ver: "1.1"
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: gameof
+      labels:
+        app: gameoflife
+        ver: "1.1"
+    spec:
+      containers:
+        - name: mygameofsample
+          image: eanjaneyulu/gameoflife:1.1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: mysvc
+spec:
+  type: LoadBalancer
+  selector:
+     app: gameoflife
+  ports:
+    - name: myport
+      port: 35000
+      targetPort: 8080
